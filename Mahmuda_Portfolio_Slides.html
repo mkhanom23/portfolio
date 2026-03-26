@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mahmuda Khanom — UX Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F9F5EE;
+    --ink: #1A1612;
+    --warm-gray: #8A8278;
+    --accent: #C4622D;
+    --accent-light: #F0E0D6;
+    --purple: #5C4B8A;
+    --purple-light: #EAE5F5;
+    --green: #2E6B4F;
+    --green-light: #DFF0E8;
+    --card-border: rgba(26,22,18,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    padding: 48px 40px 32px;
+    border-bottom: 1px solid var(--card-border);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .header-left h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .header-left p {
+    margin-top: 6px;
+    font-size: 15px;
+    color: var(--warm-gray);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+  }
+  .header-tag {
+    background: var(--ink);
+    color: var(--cream);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 100px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    padding: 24px 40px 0;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .tab {
+    padding: 10px 20px;
+    border: 1px solid var(--card-border);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    background: transparent;
+    color: var(--warm-gray);
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .tab:hover { color: var(--ink); border-color: var(--ink); }
+  .tab.active { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+  /* MAIN */
+  .main { padding: 40px 40px 60px; }
+
+  .project-view { display: none; animation: fadeUp 0.4s ease both; }
+  .project-view.visible { display: block; }
+
+  /* PROJECT HERO */
+  .project-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 40px;
+    align-items: start;
+  }
+  @media (max-width: 700px) {
+    .project-hero { grid-template-columns: 1fr; }
+    .tabs { padding: 24px 20px 0; }
+    .header { padding: 32px 20px 24px; }
+    .main { padding: 32px 20px 60px; }
+    .tab { font-size: 12px; padding: 8px 14px; }
+  }
+
+  .project-number {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    margin-bottom: 12px;
+  }
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .project-subtitle {
+    font-size: 15px;
+    color: var(--warm-gray);
+    line-height: 1.6;
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+  .meta-chip { padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 500; letter-spacing: 0.03em; }
+  .chip-role  { background: var(--accent-light); color: var(--accent); }
+  .chip-year  { background: var(--ink); color: var(--cream); }
+  .chip-org   { background: var(--purple-light); color: var(--purple); }
+  .chip-org-green { background: var(--green-light); color: var(--green); }
+
+  /* METRICS */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 8px;
+  }
+  @media (max-width: 500px) { .metrics-grid { grid-template-columns: 1fr 1fr; } }
+  .metric-card {
+    background: white;
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 20px 16px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .metric-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
+  .metric-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .metric-label { font-size: 11px; color: var(--warm-gray); font-weight: 500; line-height: 1.4; letter-spacing: 0.02em; }
+
+  /* SECTIONS */
+  .section { margin-bottom: 32px; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .section-content { font-size: 15px; line-height: 1.7; color: #3D3730; font-weight: 300; }
+
+  /* INSIGHT CARDS */
+  .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 4px; }
+  @media (max-width: 600px) { .insight-grid { grid-template-columns: 1fr; } }
+  .insight-card { background: white; border: 1px solid var(--card-border); border-radius: 14px; padding: 18px; }
+  .insight-pct { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .insight-text { font-size: 13px; color: var(--warm-gray); line-height: 1.5; }
+
+  /* PROCESS STEPS */
+  .process-steps { display: flex; flex-direction: column; gap: 12px; }
+  .process-step { display: flex; gap: 14px; align-items: flex-start; }
+  .step-num {
+    width: 28px; height: 28px; min-width: 28px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--cream);
+    font-size: 12px;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+  .step-text { font-size: 14px; line-height: 1.6; color: #3D3730; font-weight: 300; }
+  .step-text strong { font-weight: 600; color: var(--ink); }
+
+  /* QUOTE */
+  .user-quote {
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    background: var(--accent-light);
+    border-radius: 0 10px 10px 0;
+    margin: 16px 0;
+    font-size: 14px;
+    font-style: italic;
+    color: #5A4035;
+    line-height: 1.6;
+  }
+  .quote-attr { font-style: normal; font-size: 12px; color: var(--warm-gray); margin-top: 6px; font-weight: 500; }
+
+  /* TALK TRACK */
+  .talk-track { background: var(--ink); color: var(--cream); border-radius: 20px; padding: 28px; margin-top: 36px; }
+  .talk-track-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(249,245,238,0.5); margin-bottom: 12px; }
+  .talk-track-text { font-size: 15px; line-height: 1.75; font-weight: 300; color: rgba(249,245,238,0.9); }
+  .talk-track-text em { font-style: normal; color: var(--cream); font-weight: 500; }
+
+  /* NOTE BOX */
+  .note-box {
+    background: var(--purple-light);
+    border-left: 3px solid var(--purple);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 16px;
+    font-size: 14px;
+    color: var(--purple);
+    line-height: 1.65;
+    font-weight: 400;
+    margin-top: 16px;
+  }
+  .note-box.green { background: var(--green-light); border-left-color: var(--green); color: var(--green); }
+
+  /* LINK BUTTON */
+  .link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    margin-right: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--card-border);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .link-btn:hover { background: var(--ink); color: var(--cream); }
+
+  /* ABOUT TAB */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+    align-items: start;
+  }
+  @media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; } }
+
+  .about-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 3.5vw, 40px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .about-body { font-size: 15px; color: #3D3730; line-height: 1.75; font-weight: 300; margin-bottom: 24px; }
+  .about-body strong { color: var(--ink); font-weight: 600; }
+
+  .skill-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .contact-stack { display: flex; flex-direction: column; gap: 10px; }
+  .contact-row-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 13px 18px;
+  }
+  .contact-row-label { font-size: 11px; color: var(--warm-gray); font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
+  .contact-row-val { font-size: 13px; color: var(--accent); font-weight: 500; }
+
+  /* FOOTER */
+  .footer-note {
+    text-align: center;
+    padding: 24px 40px;
+    font-size: 12px;
+    color: var(--warm-gray);
+    border-top: 1px solid var(--card-border);
+    letter-spacing: 0.03em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>Mahmuda Khanom</h1>
+    <p>Product Designer · Human-centered UX for mission-driven organizations</p>
+  </div>
+  <div class="header-tag">UX Portfolio · 2025</div>
+</div>
+
+<div class="tabs">
+  <button class="tab active"  onclick="show('homies', this)">01 · Homies</button>
+  <button class="tab"         onclick="show('aspire', this)">02 · Aspire Education</button>
+  <button class="tab"         onclick="show('ninetyNines', this)">03 · The Ninety-Nines</button>
+  <button class="tab"         onclick="show('about', this)">04 · About and Contact</button>
+</div>
+
+<div class="main">
+
+<!-- ════════ HOMIES ════════ -->
+<div class="project-view visible" id="homies">
+  <div class="project-hero">
+    <div class="hero-text">
+      <div class="project-number">Project 01</div>
+      <h2 class="project-title">Homies · Task Management for Neurodivergent Users</h2>
+      <p class="project-subtitle">Redesigned the core task management and progress tracking experience of a housing platform connecting neurodivergent individuals with supportive caregiver roommates, making daily routines organized, motivating, and personalized.</p>
+      <div class="meta-row">
+        <span class="meta-chip chip-role">Product Designer</span>
+        <span class="meta-chip chip-year">Oct 2024 to Jan 2025</span>
+        <span class="meta-chip chip-org">Mobile App</span>
+        <span class="meta-chip chip-org">Design Systems</span>
+      </div>
+      <a href="https://mahmudak.framer.website/homies" target="_blank" class="link-btn">View Full Case Study ↗</a>
+      <a href="https://www.figma.com/design/1TcS6NLT70kyOMy7nizmee/Homies-Design-Portfolio-Case-Study?node-id=0-1&t=SLujyFVWKnQHpdCC-1" target="_blank" class="link-btn">View Figma File ↗</a>
+    </div>
+    <div>
+      <div class="metrics-grid">
+        <div class="metric-card"><div class="metric-number">30%</div><div class="metric-label">projected task completion increase</div></div>
+        <div class="metric-card"><div class="metric-number">40%</div><div class="metric-label">expected retention boost</div></div>
+        <div class="metric-card"><div class="metric-number">20%</div><div class="metric-label">rise in overall engagement</div></div>
+        <div class="metric-card"><div class="metric-number">50%</div><div class="metric-label">faster caregiver task approvals</div></div>
+        <div class="metric-card"><div class="metric-number">7</div><div class="metric-label">user interviews across 2 user types</div></div>
+        <div class="metric-card"><div class="metric-number">2</div><div class="metric-label">distinct interfaces in one product</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">The Problem</div>
+    <p class="section-content">Homies had the right vision but the original dashboard felt like a maze. There was no task flexibility, no personalization, and no meaningful difference between the neurodivergent user experience and the caregiver experience, despite their completely different needs, mental models, and daily contexts.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Research Findings · 7 User Interviews</div>
+    <div class="insight-grid">
+      <div class="insight-card"><div class="insight-pct">70%</div><div class="insight-text">wanted more clarity and transparency when selecting a compatible roommate</div></div>
+      <div class="insight-card"><div class="insight-pct">60%</div><div class="insight-text">needed a flexible, real-time system that adapts to forgotten or changed tasks</div></div>
+      <div class="insight-card"><div class="insight-pct">50%</div><div class="insight-text">wanted personalization features for tasks, icons, colors, and profile content</div></div>
+      <div class="insight-card"><div class="insight-pct">40%</div><div class="insight-text">struggled with visual clarity and needed more accessible, readable features</div></div>
+    </div>
+    <div class="user-quote">
+      "I want more color, visuals and personalization in the app."
+      <div class="quote-attr">Santiago, Homie (user interview)</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">What I Designed</div>
+    <div class="process-steps">
+      <div class="process-step"><div class="step-num">1</div><div class="step-text"><strong>Two separate interface experiences</strong> within one cohesive product: a motivation-first view for neurodivergent users with star rewards, color-coded status tags, and a "Needs Attention" tab; plus an efficiency-first caregiver dashboard with a pending approval modal and dual-tab task management system</div></div>
+      <div class="process-step"><div class="step-num">2</div><div class="step-text"><strong>Simplified two-step task creation</strong> that stripped required fields back, made optional inputs visibly optional, and added customizable icons, reminders, and personalized feedback messages, resulting in a 20% faster task creation rate</div></div>
+      <div class="process-step"><div class="step-num">3</div><div class="step-text"><strong>Progress tracking</strong> with weekly and monthly calendar views, a visual progress bar, and a "Share My Progress" social feature to build accountability and long-term motivation for users managing independent daily routines</div></div>
+      <div class="process-step"><div class="step-num">4</div><div class="step-text"><strong>Full design system built from scratch</strong> including the complete color palette, avatar system, task card components, error and success states, and a developer-ready style guide enabling consistent implementation across the team</div></div>
+    </div>
+  </div>
+
+  <div class="talk-track">
+    <div class="talk-track-label">Why This Project Matters</div>
+    <div class="talk-track-text">
+      Homies is a platform connecting neurodivergent individuals with supportive caregiver roommates. I redesigned the entire task management system. What made this interesting was that I had <em>two completely different users inside one product</em> with fundamentally different needs. So I ran 7 interviews across both groups and designed separate interfaces for each. I also built the full design system from scratch. We projected a 30% increase in task completion and 40% improvement in retention. This felt very relevant to government work because <em>I was designing for an underserved population who often gets overlooked in tech.</em>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ ASPIRE ════════ -->
+<div class="project-view" id="aspire">
+  <div class="project-hero">
+    <div class="hero-text">
+      <div class="project-number">Project 02</div>
+      <h2 class="project-title">Aspire Education · Nonprofit Website Redesign</h2>
+      <p class="project-subtitle">Rebuilt the website of a tutoring nonprofit from the ground up, designing completely separate user journeys for three distinct audiences within one accessible, mobile-first, scalable design system.</p>
+      <div class="meta-row">
+        <span class="meta-chip chip-role">Product Designer</span>
+        <span class="meta-chip chip-year">May 2024 to Aug 2024</span>
+        <span class="meta-chip chip-org-green">Accessibility</span>
+        <span class="meta-chip chip-org">Design Systems</span>
+      </div>
+      <a href="https://developforgood.notion.site/Aspire-Education-Transforming-a-tutoring-nonprofit-s-website-for-impact-and-sustainability-249fbe7117c080279d98e3f7b7c2623c" target="_blank" class="link-btn">View Full Case Study ↗</a>
+      <a href="https://www.figma.com/design/wyXFLX9ORIILRG5sUY8VCe/Aspire-Education-DFG-Design-Case-Study?node-id=3-9&t=b6DBOQmv0q8wNRKw-1" target="_blank" class="link-btn">View Figma File ↗</a>
+    </div>
+    <div>
+      <div class="metrics-grid">
+        <div class="metric-card"><div class="metric-number">40%</div><div class="metric-label">reduction in projected development time</div></div>
+        <div class="metric-card"><div class="metric-number">3</div><div class="metric-label">distinct user segments each with their own journey</div></div>
+        <div class="metric-card"><div class="metric-number">100%</div><div class="metric-label">mobile-first responsive design throughout</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">The Problem</div>
+    <p class="section-content">Aspire Education had one website trying to serve three completely different people, and the result was it served none of them well. Students and families could not find tutors. Volunteer tutors had no clear onboarding path. Donors could not see the organization's impact. Three confused audiences, zero clear journeys, and a nonprofit that could not communicate its value to anyone.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">The 3 Users I Designed For</div>
+    <div class="insight-grid">
+      <div class="insight-card"><div class="insight-pct">Students and Families</div><div class="insight-text">Clear navigation, plain language, and simple next steps designed for varying digital literacy levels and primarily mobile access</div></div>
+      <div class="insight-card"><div class="insight-pct">Volunteer Tutors</div><div class="insight-text">Streamlined onboarding, expectation-setting, and session management with minimal friction from discovery to first session</div></div>
+      <div class="insight-card"><div class="insight-pct">Donors</div><div class="insight-text">Impact storytelling, clear metrics, and a trust-building donation flow designed to convert interest into lasting commitment</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Design Approach</div>
+    <div class="process-steps">
+      <div class="process-step"><div class="step-num">1</div><div class="step-text"><strong>Separate information architectures per audience</strong> so each user type has a distinct entry point, navigation path, and calls to action, eliminating the cognitive load of a one-size-fits-all homepage that confused everyone</div></div>
+      <div class="process-step"><div class="step-num">2</div><div class="step-text"><strong>Accessibility-first design throughout</strong> including WCAG compliance, high-contrast color system, readable typography, and plain-language content hierarchy for users across ability and digital literacy levels</div></div>
+      <div class="process-step"><div class="step-num">3</div><div class="step-text"><strong>Modular, reusable design system</strong> with a comprehensive component library and documented style guide, reducing projected development time by 40% and allowing the nonprofit's small team to maintain and grow the site independently</div></div>
+      <div class="process-step"><div class="step-num">4</div><div class="step-text"><strong>Mobile-first responsive design</strong> built around the primary device of the families being served, not as an afterthought, ensuring the experience worked for people with limited desktop access</div></div>
+    </div>
+  </div>
+
+  <div class="note-box green">
+    Designing public-facing services for audiences with different digital literacy, different devices, and different goals is exactly what government UX requires. This project translates directly to civic technology work.
+  </div>
+
+  <div class="talk-track">
+    <div class="talk-track-label">Why This Project Matters</div>
+    <div class="talk-track-text">
+      Aspire Education is a tutoring nonprofit. The challenge was that <em>three completely different people used the same site</em>: students and families, tutors, and donors. I designed three separate user journeys within one cohesive site. I also built a modular design system that reduced development time by 40%, which matters a lot for a nonprofit with limited resources. And I was focused on accessibility throughout because <em>a lot of the families being served were not highly tech-savvy</em>, which I think is exactly the kind of thing that matters in government services too.
+    </div>
+  </div>
+</div>
+
+<!-- ════════ NINETY NINES ════════ -->
+<div class="project-view" id="ninetyNines">
+  <div class="project-hero">
+    <div class="hero-text">
+      <div class="project-number">Project 03</div>
+      <h2 class="project-title">The Ninety-Nines · Women in Aviation Web Platform</h2>
+      <p class="project-subtitle">Designed the end-to-end UX for the "Let's Fly Now!" program launch on The Ninety-Nines' new website, an international nonprofit promoting women in aviation, enabling event discovery and role-based registration for three distinct participant types.</p>
+      <div class="meta-row">
+        <span class="meta-chip chip-role">Product Designer</span>
+        <span class="meta-chip chip-year">2024 to 2025</span>
+        <span class="meta-chip chip-org">Web Platform</span>
+        <span class="meta-chip chip-org">Systems Thinking</span>
+      </div>
+      <a href="https://developforgood.notion.site/The-Ninety-Nines-Case-Study-30ffbe7117c0808bbc99cbc9a0e1369a" target="_blank" class="link-btn">View Full Case Study ↗</a>
+      <a href="https://www.figma.com/design/bUvpqrZ5CgPYUcQT3ZwVTS/The-Ninety-Nines-Design-Portfolio-Case-Study?node-id=0-1&t=sd3tceMG9OmxoVVj-1" target="_blank" class="link-btn">View Figma File ↗</a>
+    </div>
+    <div>
+      <div class="metrics-grid">
+        <div class="metric-card"><div class="metric-number">8</div><div class="metric-label">functional requirements delivered end-to-end</div></div>
+        <div class="metric-card"><div class="metric-number">3</div><div class="metric-label">distinct user roles designed for</div></div>
+        <div class="metric-card"><div class="metric-number">2</div><div class="metric-label">full design rounds from lo-fi to hi-fi</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">The Problem</div>
+    <p class="section-content">The Ninety-Nines was launching their very first flight program with no existing digital infrastructure, no design precedent, and a complex backend controlled by a third-party developer with restricted access. We needed to design a compelling, public-facing experience from zero that worked seamlessly with a backend system we had limited visibility into.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Who I Designed For</div>
+    <div class="insight-grid">
+      <div class="insight-card"><div class="insight-pct">Passengers</div><div class="insight-text">First-time flyers discovering the program, browsing upcoming events, and completing a simple sign-up with confirmation</div></div>
+      <div class="insight-card"><div class="insight-pct">Pilot Volunteers</div><div class="insight-text">Experienced pilots completing logistics forms, liability documentation, and submitting details to chapter leadership</div></div>
+      <div class="insight-card"><div class="insight-pct">Ground Volunteers</div><div class="insight-text">Event supporters selecting their participation role, registering simply, and receiving clear confirmation</div></div>
+      <div class="insight-card"><div class="insight-pct">Chapter Leaders</div><div class="insight-text">Internal admins initiating events through a structured creation flow that feeds the public-facing event listings</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">My Process</div>
+    <div class="process-steps">
+      <div class="process-step"><div class="step-num">1</div><div class="step-text"><strong>Mapped the full system before designing anything</strong> by documenting the 3-tier event lifecycle from chapter leader to super admin to public users in Figma, ensuring every design decision was grounded in how the backend data actually flowed</div></div>
+      <div class="process-step"><div class="step-num">2</div><div class="step-text"><strong>Low-fidelity wireframes reviewed with the client</strong> to validate structure and functionality before investing in any visual design work, keeping the process lean and feedback-driven</div></div>
+      <div class="process-step"><div class="step-num">3</div><div class="step-text"><strong>High-fidelity interactive Figma prototype</strong> covering all user roles, role-based registration forms, liability and pilot documentation, and full confirmation flows</div></div>
+      <div class="process-step"><div class="step-num">4</div><div class="step-text"><strong>8 functional requirements scoped and delivered</strong> including public event pages, role-based sign-up forms, liability forms, confirmation emails, duplicate registration prevention, location lookups, and end-to-end testing with sample events</div></div>
+    </div>
+  </div>
+
+  <div class="talk-track">
+    <div class="talk-track-label">Why This Project Matters</div>
+    <div class="talk-track-text">
+      The Ninety-Nines is an international nonprofit promoting women in aviation. They were launching their first-ever flight program and needed a full web experience built from scratch. <em>I designed the end-to-end UX for the entire platform</em>, including event discovery and three separate role-based registration flows for passengers, pilots, and volunteers. Before I designed a single screen, I mapped the entire backend event lifecycle, because I needed to make sure what I designed would actually work with the system. <em>This was really about systems thinking</em>, which I think translates directly to how government digital services are built.
+    </div>
+  </div>
+</div>
+
+<!-- ════════ ABOUT ════════ -->
+<div class="project-view" id="about">
+  <div class="about-grid">
+    <div>
+      <div class="project-number">About Me</div>
+      <h2 class="about-heading">Designing for the people who need it most.</h2>
+      <p class="about-body">
+        I am a UX designer based in New York City with a <strong>Bachelor of Arts in Psychology from CUNY Hunter College</strong>. Understanding human behavior, cognitive load, and decision-making is what I studied before I ever opened Figma, and it informs everything I design.<br><br>
+        All three of my case studies are <strong>real client work for nonprofits</strong>. I have designed for neurodivergent individuals, youth from under-resourced communities, and women breaking into male-dominated fields. The through-line in my work is <strong>human-centered design for people who are often overlooked in tech.</strong><br><br>
+        That is exactly why I want to design for the public sector.
+      </p>
+      <div class="skill-chips">
+        <span class="meta-chip chip-role">User Research</span>
+        <span class="meta-chip chip-year">Figma</span>
+        <span class="meta-chip chip-org">Design Systems</span>
+        <span class="meta-chip chip-org-green">Accessibility / WCAG</span>
+        <span class="meta-chip chip-org">Usability Testing</span>
+        <span class="meta-chip chip-role">Journey Mapping</span>
+        <span class="meta-chip chip-year">Mobile-First Design</span>
+        <span class="meta-chip chip-org">HTML and CSS</span>
+        <span class="meta-chip chip-org-green">Psychology BA</span>
+        <span class="meta-chip chip-org">Stakeholder Collaboration</span>
+      </div>
+    </div>
+    <div>
+      <div class="section-label" style="margin-bottom: 16px;">Get In Touch</div>
+      <div class="contact-stack">
+        <div class="contact-row-item"><span class="contact-row-label">Portfolio</span><span class="contact-row-val">mahmudak.framer.website</span></div>
+        <div class="contact-row-item"><span class="contact-row-label">Email</span><span class="contact-row-val" id="em2"></span></div>
+        <div class="contact-row-item"><span class="contact-row-label">Phone</span><span class="contact-row-val">(646) 923-2161</span></div>
+        <div class="contact-row-item"><span class="contact-row-label">LinkedIn</span><span class="contact-row-val">linkedin.com/in/mahmuda-khanom</span></div>
+        <div class="contact-row-item"><span class="contact-row-label">Location</span><span class="contact-row-val">New York, NY</span></div>
+      </div>
+      <div class="section-label" style="margin-top: 28px; margin-bottom: 16px;">Education and Training</div>
+      <div class="contact-stack">
+        <div class="contact-row-item"><span class="contact-row-label">CUNY Hunter College</span><span class="contact-row-val">BA Psychology</span></div>
+        <div class="contact-row-item"><span class="contact-row-label">Google</span><span class="contact-row-val">UX Design Certificate</span></div>
+        <div class="contact-row-item"><span class="contact-row-label">Brainstation</span><span class="contact-row-val">UX Design Course</span></div>
+        <div class="contact-row-item"><span class="contact-row-label">Kickass UX</span><span class="contact-row-val">UX Design Course</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<div class="footer-note">
+  mahmudak.framer.website &nbsp;·&nbsp; <span id="em"></span> &nbsp;·&nbsp; (646) 923-2161 &nbsp;·&nbsp; New York, NY
+</div>
+
+<script>
+  function show(id, btn) {
+    document.querySelectorAll('.project-view').forEach(function(v) {
+      v.classList.remove('visible');
+    });
+    document.querySelectorAll('.tab').forEach(function(t) {
+      t.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('visible');
+    btn.classList.add('active');
+  }
+
+  // Renders email so it displays correctly
+  var u = 'mahmudakhnm26';
+  var d = 'gmail.com';
+  var el = document.getElementById('em');
+  if (el) { el.textContent = u + '\u0040' + d; }
+  var el2 = document.getElementById('em2');
+  if (el2) { el2.textContent = u + '\u0040' + d; }
+</script>
+</body>
+</html>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/e
